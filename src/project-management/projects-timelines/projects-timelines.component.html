@@ -1,0 +1,137 @@
+<div class="main-content" *ngIf="!projectId">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="card">
+                    <div class="card-header card-header-primary">
+                        <h3 class="card-title ">Projects Management</h3>
+                        <p class="card-category"> Projects Timelines</p>
+                    </div>
+                    <div class="card-body">
+                        <form [formGroup]="filterForm">
+                            <h4 class="background"><span>{{'Filter Projects'}} </span>
+                            </h4>
+                            <div class="row">
+                                <div class="col">
+                                    <mat-form-field class="example-full-width" appearance="outline">
+                                        <mat-label>Project Name</mat-label>
+                                        <input matInput formControlName="projectName" placeholder="Project Name">
+                                    </mat-form-field>
+                                </div>
+                                <div class="col">
+                                    <mat-form-field class="example-full-width" appearance="outline">
+                                        <mat-label>Client Name</mat-label>
+                                        <input matInput formControlName="clientName" placeholder="Client Name">
+                                    </mat-form-field>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <button mat-raised-button class="btn btn-primary pull-right" (click)="applyFilter()"
+                                        style="margin: 1px;">Search</button>
+                                    <button mat-raised-button class="btn btn-primary pull-right" (click)="restFilter()"
+                                        style="margin: 1px;">Reset Filter</button>
+                                    <div class="clearfix"></div>
+                                </div>
+                            </div>
+
+                        </form>
+                        <hr />
+                        <div class="" *ngFor="let project of projectsList">
+                            <div class="col-md-12">
+
+                                <div class="row card pt-3 pl-5" style="border-radius: 50px;">
+                                    <div class="card-body">
+                                        <div class="container">
+                                            <div class="row">
+                                                <div class="col-md-6 d-flex justify-content-start">
+                                                    <h3>Project Name: <b>{{project.projectName}}</b></h3>
+                                                </div>
+                                                <div class="col-md-6 d-flex justify-content-start">
+                                                    <h3>Client Name: <b>{{project.clientName}}</b></h3>
+                                                </div>
+                                            </div>
+
+                                            <div class="timeline-wrapper">
+                                                <div class="timeline">
+                                                    <div [class]="project.subStatus==1?'event-choosen':'event'">
+                                                        <p>Not Started</p>
+                                                    </div>
+                                                    <div [class]="project.subStatus==2?'event-choosen':'event'">
+                                                        <p>In Progress</p>
+                                                    </div>
+
+                                                    <div [class]="project.subStatus==3?'event-choosen':'event'">
+                                                        <p>Closed</p>
+                                                    </div>
+                                                    <div [class]="project.subStatus==4?'event-choosen':'event'">
+                                                        <p>Rejected</p>
+                                                    </div>
+                                                    <div [class]="project.subStatus==5?'event-choosen':'event'">
+                                                        <p>Returned For Modification</p>
+                                                    </div>
+                                                    <div [class]="project.subStatus==6?'event-choosen':'event'">
+                                                        <p>Completed</p>
+                                                    </div>
+
+                                                </div>
+                                            </div>
+
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div *ngIf="projectId">
+    <div class="" *ngFor="let project of projectsList">
+        <div class="col-md-12">
+
+            <div class="row card pt-3 pl-5" style="border-radius: 50px;">
+                <div class="card-body">
+                    <div class="container">
+                        <div class="row">
+                            <div class="col-md-6 d-flex justify-content-start">
+                                <h3>Project Name: <b>{{project.projectName}}</b></h3>
+                            </div>
+                            <div class="col-md-6 d-flex justify-content-start">
+                                <h3>Client Name: <b>{{project.clientName}}</b></h3>
+                            </div>
+                        </div>
+
+                        <div class="timeline-wrapper">
+                            <div class="timeline">
+                                <div [class]="project.subStatus==1?'event-choosen':'event'">
+                                    <p>Not Started</p>
+                                </div>
+                                <div [class]="project.subStatus==2?'event-choosen':'event'">
+                                    <p>In Progress</p>
+                                </div>
+
+                                <div [class]="project.subStatus==3?'event-choosen':'event'">
+                                    <p>Closed</p>
+                                </div>
+                                <div [class]="project.subStatus==4?'event-choosen':'event'">
+                                    <p>Rejected</p>
+                                </div>
+                                <div [class]="project.subStatus==5?'event-choosen':'event'">
+                                    <p>Returned For Modification</p>
+                                </div>
+                                <div [class]="project.subStatus==6?'event-choosen':'event'">
+                                    <p>Completed</p>
+                                </div>
+
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

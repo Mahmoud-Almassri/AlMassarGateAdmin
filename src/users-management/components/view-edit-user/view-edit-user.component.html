@@ -1,0 +1,111 @@
+<div class="main-content">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-8">
+                <div class="card">
+                    <div class="card-header card-header-primary">
+                        <h3 class="card-title">Users Management</h3>
+                        <p class="card-category">Edit User</p>
+                    </div>
+                    <div class="card-body">
+                        <form [formGroup]="userForm">
+                            <div class="row">
+                                <!--    <div class="col-md-5">
+                                  <mat-form-field class="example-full-width">
+                                      <input matInput placeholder="Company (disabled)" disabled>
+                                    </mat-form-field>
+                                </div> -->
+                                <div class="col">
+                                    <mat-form-field class="example-full-width" appearance="outline">
+                                        <mat-label>Full Name</mat-label>
+                                        <input matInput formControlName="fullName" placeholder="Full Name">
+                                        <mat-error
+                                            *ngIf="getFormControlByName('fullName').touched && getFormControlByName('fullName').invalid">
+                                            This field is required *</mat-error>
+                                    </mat-form-field>
+                                </div>
+                                <div class="col">
+                                    <mat-form-field class="example-full-width" appearance="outline">
+                                        <mat-label>Email</mat-label>
+                                        <input matInput formControlName="email" placeholder="Email">
+                                        <mat-error
+                                            *ngIf="getFormControlByName('email').touched && getFormControlByName('email').invalid">
+                                            This field is required *</mat-error>
+                                    </mat-form-field>
+                                </div>
+                                <div class="col">
+                                    <mat-form-field class="example-full-width" appearance="outline">
+                                        <mat-label>Phone Number</mat-label>
+                                        <input matInput formControlName="phoneNumber" placeholder="Phone Number">
+                                        <mat-error
+                                            *ngIf="getFormControlByName('phoneNumber').touched && getFormControlByName('phoneNumber').invalid">
+                                            This field is required *</mat-error>
+                                    </mat-form-field>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col">
+                                    <mat-form-field class="example-full-width" appearance="outline">
+                                        <mat-label>Address</mat-label>
+                                        <input matInput formControlName="address" placeholder="Address">
+                                    </mat-form-field>
+                                </div>
+                            </div>
+                            <button mat-raised-button (click)="submitForm(user.isActive,null)" type="submit"
+                                class="btn btn-primary pull-right">Save Changes</button>
+                            <div class="clearfix"></div>
+                        </form>
+                        <form *ngIf="user">
+                            <h4 class="background"><span>Manage User Subscription </span></h4>
+                            <div class="row">
+                                <div class="col">
+                                    <mat-form-field class="example-full-width" appearance="outline">
+                                        <mat-label>Remaining Subscription</mat-label>
+                                        <input matInput [(ngModel)]="user.remainingSubscription"
+                                            [ngModelOptions]="{standalone: true}" placeholder="Remaining Subscription">
+                                    </mat-form-field>
+                                </div>
+                                <div class="col">
+                                    <mat-label>Remaining Subscription Last Modified Date</mat-label><br>
+                                    <mat-label style="font-weight: bold;">{{user.remainingSubscriptionModifiedDate
+                                        |date:'short'}}</mat-label>
+
+
+                                </div>
+                            </div>
+                            <button mat-raised-button (click)="submitForm(user.isActive,user?.remainingSubscription)"
+                                type="submit" class="btn btn-primary pull-right">Update Subscription</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+            <div *ngIf="user" class="col-md-4">
+                <div class="card card-profile">
+                    <div [class]="user.isActive?'active-user-avatar card-avatar':'not-active-user-avatar card-avatar'">
+                        <a href="javascript:void(0)">
+                            <img class="img" src="./assets/img/faces/marc.png" />
+                        </a>
+                    </div>
+                    <div class="card-body">
+                        <h6 class="card-category text-gray">{{user.userName}}</h6>
+                        <h4 class="card-title">{{user.fullName}}</h4>
+                        <!--   <p class="card-description">
+                            Don't be scared of the truth because we need to restart the human foundation in truth And I
+                            love you like Kanye loves Kanye I love Rick Owens’ bed design but the back is...
+                        </p> -->
+                        <!--  <button (click)="submitForm(false)" class="btn btn-danger" *ngIf="user.isActive"
+                            mat-icon-button aria-label="Deactivate">
+                            Deactivate <mat-icon>block</mat-icon>
+                        </button> -->
+                        <a (click)="submitForm(false)" *ngIf="user.isActive" class="btn btn-danger btn-round">
+                            Deactivate <mat-icon>block</mat-icon>
+                        </a>
+                        <a (click)="submitForm(true)" *ngIf="!user.isActive" class="btn btn-success btn-round">
+                            Activate <mat-icon>check</mat-icon>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

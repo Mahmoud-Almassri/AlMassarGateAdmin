@@ -1,0 +1,36 @@
+<input id="{{elementId}}" type="file" *ngIf="!readOnly" [hidden]="true" (change)="fileUploaderChanged($event)" />
+<div class="row" *ngIf="!readOnly">
+    <div class="col-md-9">
+        <mat-form-field class="example-full-width" appearance="outline">
+            <mat-label>{{elementName}}</mat-label>
+            <input type="text" disabled="true" matInput [(ngModel)]="fileData">
+        </mat-form-field>
+    </div>
+    <div class="col-md-3">
+        <button (click)="openUploader()" mat-raised-button class="btn btn-primary" matTooltip="Upload {{elementName}}"
+            matTooltipPosition="above">
+            Upload {{' '}}<i class="fa fa-upload" aria-hidden="true"></i>
+        </button>
+    </div>
+</div>
+<div class="row" *ngIf="readOnly">
+    <div class="col-md-9">
+        <mat-form-field class="example-full-width" appearance="outline">
+            <mat-label>{{elementName}}</mat-label>
+            <input type="text" disabled="true" matInput [(ngModel)]="fileLocation">
+        </mat-form-field>
+    </div>
+    <div class="col-md-3" *ngIf="!isDeleteAllowed">
+        <button mat-raised-button (click)="downloadFile()" class="btn btn-primary" matTooltip="Download {{elementName}}" matTooltipPosition="above">
+            Download {{' '}} <i class="fa fa-download" aria-hidden="true"></i>
+        </button>
+    </div>
+    <div class="col-md-3 mt-2"  *ngIf="isDeleteAllowed">
+        <button mat-mini-fab (click)="downloadFile()" class="btn btn-primary" matTooltip="Download {{elementName}}" matTooltipPosition="above">
+             <i class="fa fa-download" aria-hidden="true"></i>
+        </button> 
+        <button mat-mini-fab (click)="deleteFile()" class="btn btn-danger ml-3" matTooltip="Delete {{elementName}}" matTooltipPosition="above">
+             <i class="fa fa-trash" aria-hidden="true"></i>
+        </button>
+    </div>
+</div>

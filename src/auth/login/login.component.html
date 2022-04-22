@@ -1,0 +1,41 @@
+<div class="row log">
+  <div class="col-md-6">
+    <div class="">
+      <div class="row" style="justify-content: center;">
+        <div class="col-md-12 text-center">
+          <img src="./../../assets/img/logo.png" />
+        </div>
+      </div>
+      <div class="row" style="justify-content: center;">
+        <h2>Welcome Back</h2>
+      </div>
+      <form [formGroup]="loginForm">
+        <div class="row" style="justify-content: center;">
+          <div class="col-md-10 p-3">
+              <mat-form-field class="example-full-width" appearance="outline">
+                <mat-label>Username</mat-label>
+                <input matInput formControlName="username" type="text" id="username">
+              </mat-form-field>
+          </div>
+        </div>
+        <div class="row" style="justify-content: center;">
+          <div class="col-md-10 p-3">
+              <mat-form-field appearance="outline">
+                <mat-label>Password</mat-label>
+                <input matInput type="password" formControlName="password" id="password">
+              </mat-form-field>
+          </div>
+        </div>
+    
+        <!--  <span class="check">
+                <input type="checkbox"> <label>Remember Me</label>
+              </span> -->
+        <!--  <a href="#">Forgot Password</a> -->
+        <div class="clear"></div>
+        <div class="row" style="justify-content: center;">
+          <button mat-raised-button class="btn btn-primary" type="submit" (click)="submitForm()">Login</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>

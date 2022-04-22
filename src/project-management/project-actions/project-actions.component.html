@@ -1,0 +1,208 @@
+<div class="main-content" *ngIf="!projectIdInput">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="card">
+                    <div class="card-header card-header-primary">
+                        <h3 class="card-title">Project Management</h3>
+                        <p class="card-category">Project Actions</p>
+                    </div>
+                    <div class="card-body p-5">
+                        <div class="" *ngFor="let action of actions">
+                            <div class="col-md-12">
+                                <div *ngIf="action.actionType==1" class="bg-success action-circle">
+                                    <div class="row d-flex justify-content-center mt-2 action-circle-day">
+                                        {{action.createdDate.toString().substring(0,1)}}
+                                    </div>
+                                    <div class="row d-flex justify-content-center action-circle-month">
+                                        {{fetchMonthFromDate(action.createdDate)}}
+                                    </div>
+                                </div>
+                                <div *ngIf="action.actionType==2" class="bg-info action-circle">
+                                    <div class="row d-flex justify-content-center mt-2 action-circle-day">
+                                        {{action.createdDate.toString().substring(0,1)}}
+                                    </div>
+                                    <div class="row d-flex justify-content-center action-circle-month">
+                                        {{fetchMonthFromDate(action.createdDate)}}
+                                    </div>
+                                </div>
+                                <div *ngIf="action.actionType==3" class="bg-danger action-circle">
+                                    <div class="row d-flex justify-content-center mt-2 action-circle-day">
+                                        {{action.createdDate.toString().substring(0,1)}}
+                                    </div>
+                                    <div class="row d-flex justify-content-center action-circle-month">
+                                        {{fetchMonthFromDate(action.createdDate)}}
+                                    </div>
+                                </div>
+                                <div *ngIf="action.actionType==4" class="bg-warning action-circle">
+                                    <div class="row d-flex justify-content-center mt-2 action-circle-day">
+                                        {{action.createdDate.toString().substring(0,1)}}
+                                    </div>
+                                    <div class="row d-flex justify-content-center action-circle-month">
+                                        {{fetchMonthFromDate(action.createdDate)}}
+                                    </div>
+                                </div>
+                                <div *ngIf="action.actionType==5" class="bg-secondary action-circle">
+                                    <div class="row d-flex justify-content-center mt-2 action-circle-day">
+                                        {{action.createdDate.toString().substring(0,1)}}
+                                    </div>
+                                    <div class="row d-flex justify-content-center action-circle-month">
+                                        {{fetchMonthFromDate(action.createdDate)}}
+                                    </div>
+                                </div>
+                                <div class="row card pt-3 pl-5" style="border-radius: 50px;">
+                                    <div class="card-body">
+                                        <span>
+                                            <p *ngIf="action.actionType==1" class="approve-action"><b>{{action.createdBy
+                                                    }}</b> {{' has '}} approved {{action.taskName}} on
+                                                <b>{{action.createdDate|date:('dd-MM-yyyy hh:mm')}}</b>
+                                            </p>
+                                            <p *ngIf="action.actionType==2" class="submit-action"><b>{{action.createdBy
+                                                    }}</b> {{' has '}} submited {{action.taskName}} on
+                                                <b>{{action.createdDate|date:('dd-MM-yyyy hh:mm')}}</b>
+                                            </p>
+                                            <p *ngIf="action.actionType==3" class="reject-action"><b>{{action.createdBy
+                                                    }}</b> {{' has '}} rejected {{action.taskName}} on
+                                                <b>{{action.createdDate|date:('dd-MM-yyyy hh:mm')}}</b>
+                                            </p>
+                                            <p *ngIf="action.actionType==4" class="return-action"><b>{{action.createdBy
+                                                    }}</b> {{' has '}} returned {{action.taskName}} for modification on
+                                                <b>{{action.createdDate|date:('dd-MM-yyyy hh:mm')}}</b>
+                                            </p>
+                                            <p *ngIf="action.actionType==5" class="complete-action">
+                                                <b>{{action.createdBy }}</b> {{' has '}} completed {{action.taskName}}
+                                                on
+                                                <b>{{action.createdDate|date:('dd-MM-yyyy hh:mm')}}</b>
+                                            </p>
+                                        </span>
+                                        <div class="comments-btn" *ngIf="action.comments">
+                                            <button *ngIf="action.actionType==1" mat-mini-fab
+                                                (click)="openCommentsDialog(action.comments)" class="btn btn-success"
+                                                matTooltip="Action Comments" matTooltipPosition="above">
+                                                <i class="fa fa-comments" aria-hidden="true"></i>
+                                            </button>
+                                            <button *ngIf="action.actionType==2" mat-mini-fab
+                                                (click)="openCommentsDialog(action.comments)" class="btn btn-info"
+                                                matTooltip="Action Comments" matTooltipPosition="above">
+                                                <i class="fa fa-comments" aria-hidden="true"></i>
+                                            </button>
+                                            <button *ngIf="action.actionType==3" mat-mini-fab
+                                                (click)="openCommentsDialog(action.comments)" class="btn btn-danger"
+                                                matTooltip="Action Comments" matTooltipPosition="above">
+                                                <i class="fa fa-comments" aria-hidden="true"></i>
+                                            </button>
+                                            <button *ngIf="action.actionType==4" mat-mini-fab
+                                                (click)="openCommentsDialog(action.comments)" class="btn btn-warning"
+                                                matTooltip="Action Comments" matTooltipPosition="above">
+                                                <i class="fa fa-comments" aria-hidden="true"></i>
+                                            </button>
+                                            <button *ngIf="action.actionType==5" mat-mini-fab
+                                                (click)="openCommentsDialog(action.comments)" class="btn btn-secondary"
+                                                matTooltip="Action Comments" matTooltipPosition="above">
+                                                <i class="fa fa-comments" aria-hidden="true"></i>
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div *ngIf="projectIdInput" class="p-5">
+    <div class="" *ngFor="let action of actions">
+        <div class="col-md-12">
+            <div *ngIf="action.actionType==1" class="bg-success action-circle">
+                <div class="row d-flex justify-content-center mt-2 action-circle-day">
+                    {{action.createdDate.toString().substring(0,1)}}
+                </div>
+                <div class="row d-flex justify-content-center action-circle-month">
+                    {{fetchMonthFromDate(action.createdDate)}}
+                </div>
+            </div>
+            <div *ngIf="action.actionType==2" class="bg-info action-circle">
+                <div class="row d-flex justify-content-center mt-2 action-circle-day">
+                    {{action.createdDate.toString().substring(0,1)}}
+                </div>
+                <div class="row d-flex justify-content-center action-circle-month">
+                    {{fetchMonthFromDate(action.createdDate)}}
+                </div>
+            </div>
+            <div *ngIf="action.actionType==3" class="bg-danger action-circle">
+                <div class="row d-flex justify-content-center mt-2 action-circle-day">
+                    {{action.createdDate.toString().substring(0,1)}}
+                </div>
+                <div class="row d-flex justify-content-center action-circle-month">
+                    {{fetchMonthFromDate(action.createdDate)}}
+                </div>
+            </div>
+            <div *ngIf="action.actionType==4" class="bg-warning action-circle">
+                <div class="row d-flex justify-content-center mt-2 action-circle-day">
+                    {{action.createdDate.toString().substring(0,1)}}
+                </div>
+                <div class="row d-flex justify-content-center action-circle-month">
+                    {{fetchMonthFromDate(action.createdDate)}}
+                </div>
+            </div>
+            <div *ngIf="action.actionType==5" class="bg-secondary action-circle">
+                <div class="row d-flex justify-content-center mt-2 action-circle-day">
+                    {{action.createdDate.toString().substring(0,1)}}
+                </div>
+                <div class="row d-flex justify-content-center action-circle-month">
+                    {{fetchMonthFromDate(action.createdDate)}}
+                </div>
+            </div>
+            <div class="row card pt-3 pl-5" style="border-radius: 50px;">
+                <div class="card-body">
+                    <span>
+                        <p *ngIf="action.actionType==1" class="approve-action"><b>{{action.createdBy
+                                }}</b> {{' has '}} approved {{action.taskName}} on
+                            <b>{{action.createdDate|date:('dd-MM-yyyy hh:mm')}}</b>
+                        </p>
+                        <p *ngIf="action.actionType==2" class="submit-action"><b>{{action.createdBy
+                                }}</b> {{' has '}} submited {{action.taskName}} on
+                            <b>{{action.createdDate|date:('dd-MM-yyyy hh:mm')}}</b>
+                        </p>
+                        <p *ngIf="action.actionType==3" class="reject-action"><b>{{action.createdBy
+                                }}</b> {{' has '}} rejected {{action.taskName}} on
+                            <b>{{action.createdDate|date:('dd-MM-yyyy hh:mm')}}</b>
+                        </p>
+                        <p *ngIf="action.actionType==4" class="return-action"><b>{{action.createdBy
+                                }}</b> {{' has '}} returned {{action.taskName}} for modification on
+                            <b>{{action.createdDate|date:('dd-MM-yyyy hh:mm')}}</b>
+                        </p>
+                        <p *ngIf="action.actionType==5" class="complete-action">
+                            <b>{{action.createdBy }}</b> {{' has '}} completed {{action.taskName}} on
+                            <b>{{action.createdDate|date:('dd-MM-yyyy hh:mm')}}</b>
+                        </p>
+                    </span>
+                    <div class="comments-btn" *ngIf="action.comments">
+                        <button *ngIf="action.actionType==1" mat-mini-fab (click)="openCommentsDialog(action.comments)"
+                            class="btn btn-success" matTooltip="Action Comments" matTooltipPosition="above">
+                            <i class="fa fa-comments" aria-hidden="true"></i>
+                        </button>
+                        <button *ngIf="action.actionType==2" mat-mini-fab (click)="openCommentsDialog(action.comments)"
+                            class="btn btn-info" matTooltip="Action Comments" matTooltipPosition="above">
+                            <i class="fa fa-comments" aria-hidden="true"></i>
+                        </button>
+                        <button *ngIf="action.actionType==3" mat-mini-fab (click)="openCommentsDialog(action.comments)"
+                            class="btn btn-danger" matTooltip="Action Comments" matTooltipPosition="above">
+                            <i class="fa fa-comments" aria-hidden="true"></i>
+                        </button>
+                        <button *ngIf="action.actionType==4" mat-mini-fab (click)="openCommentsDialog(action.comments)"
+                            class="btn btn-warning" matTooltip="Action Comments" matTooltipPosition="above">
+                            <i class="fa fa-comments" aria-hidden="true"></i>
+                        </button>
+                        <button *ngIf="action.actionType==5" mat-mini-fab (click)="openCommentsDialog(action.comments)"
+                            class="btn btn-secondary" matTooltip="Action Comments" matTooltipPosition="above">
+                            <i class="fa fa-comments" aria-hidden="true"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

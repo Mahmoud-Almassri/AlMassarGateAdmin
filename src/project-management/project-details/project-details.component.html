@@ -1,0 +1,200 @@
+<div class="main-content">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="card">
+                    <div class="card-header card-header-primary">
+                        <h3 class="card-title">Project Details</h3>
+                        <p class="card-category">Project {{project?.projectName}}</p>
+                    </div>
+                    <div class="card-body">
+                        <mat-tab-group>
+                            <mat-tab label="Details">
+                                <form [formGroup]="projectForm">
+                                    <div class="row mt-3">
+                                        <div class="col">
+                                            <mat-form-field class="example-full-width" appearance="outline">
+                                                <mat-label>Number of panels</mat-label>
+                                                <input type="number"
+                                                    matInput formControlName="numberOfPanels" placeholder="Number of panels">
+                                            </mat-form-field>
+                                        </div>
+                                    </div>
+                                    <div class="row mt-3">
+                                        <div class="col">
+                                            <mat-form-field class="example-full-width" appearance="outline">
+                                                <mat-label>Design Reference</mat-label>
+                                                <input type="text"
+                                                    matInput formControlName="designReference" placeholder="Design Reference">
+                                            </mat-form-field>
+                                        </div>
+                                    </div>
+                                    <div class="row mt-3">
+                                        <div class="col">
+                                            <mat-form-field class="example-full-width" appearance="outline">
+                                                <mat-label>Project Name</mat-label>
+                                                <input type="text" matInput
+                                                    formControlName="projectName" placeholder="Project Name">
+                                            </mat-form-field>
+                                        </div>
+                                    </div>
+                                    <div class="row mt-3">
+                                        <div class="col">
+                                            <mat-form-field class="example-full-width" appearance="outline">
+                                                <mat-label>Client Name</mat-label>
+                                                <input type="text" matInput
+                                                    formControlName="clientName" placeholder="Client Name">
+                                            </mat-form-field>
+                                        </div>
+                                    </div>
+                                    <div class="row mt-3">
+                                        <div class="col">
+                                            <mat-form-field class="example-full-width" appearance="outline">
+                                                <mat-label>Sub Status</mat-label>
+                                                <mat-select (selectionChange)="selectValueChanged($event,'subStatus')" formControlName="subStatus" name="status">
+                                                    <mat-option *ngFor="let status of baseStatuses" [value]="status.id">
+                                                      {{status.name}}
+                                                    </mat-option>
+                                                  </mat-select>
+                                            </mat-form-field>
+                                        </div>
+                                    </div>
+                                    <div class="row mt-3">
+                                        <div class="col">
+                                            <mat-form-field class="example-full-width" appearance="outline">
+                                                <mat-label>Iron Phase Start-End Date</mat-label>
+                                                <mat-date-range-input [rangePicker]="ironPhaseStartEndDatePicker">
+                                                    <input (input)="inputValueChanged($event,'ironPhaseStartDate')" formControlName="ironPhaseStartDate" placeholder="Project Start Date" matStartDate>
+                                                    <input (input)="inputValueChanged($event,'ironPhaseEndDate')" formControlName="ironPhaseEndDate" placeholder="Project Start Date" matEndDate>
+                                                  </mat-date-range-input>
+                                                  <mat-datepicker-toggle matSuffix [for]="ironPhaseStartEndDatePicker"></mat-datepicker-toggle>
+                                                  <mat-date-range-picker #ironPhaseStartEndDatePicker></mat-date-range-picker>
+                                                <mat-error
+                                                    *ngIf="getFormControlByName('ironPhaseStartDate').touched && getFormControlByName('ironPhaseStartDate').invalid
+                                                    || (getFormControlByName('ironPhaseEndDate').touched && getFormControlByName('ironPhaseEndDate').invalid)">
+                                                    This field is required *</mat-error>
+                                            </mat-form-field>
+                                        </div>
+                                    </div> 
+                                    <div class="row mt-3">
+                                        <div class="col">
+                                            <mat-form-field class="example-full-width" appearance="outline">
+                                                <mat-label>Electricity Phase Start=End Date</mat-label>
+                                                <mat-date-range-input [rangePicker]="electricityPhaseStartEndDatePicker">
+                                                    <input (input)="inputValueChanged($event,'electricityPhaseStartDate')" formControlName="electricityPhaseStartDate" placeholder="Project Start Date" matStartDate>
+                                                    <input (input)="inputValueChanged($event,'electricityPhaseEndDate')" formControlName="electricityPhaseEndDate" placeholder="Project Start Date" matEndDate>
+                                                  </mat-date-range-input>
+                                                  <mat-datepicker-toggle matSuffix [for]="electricityPhaseStartEndDatePicker"></mat-datepicker-toggle>
+                                                  <mat-date-range-picker #electricityPhaseStartEndDatePicker></mat-date-range-picker>
+                                                <mat-error
+                                                    *ngIf="getFormControlByName('electricityPhaseStartDate').touched && getFormControlByName('electricityPhaseStartDate').invalid
+                                                    || (getFormControlByName('electricityPhaseEndDate').touched && getFormControlByName('electricityPhaseEndDate').invalid)">
+                                                    This field is required *</mat-error>
+                                            </mat-form-field>
+                                        </div>
+                                    </div> 
+                                    <div class="row mt-3">
+                                        <div class="col">
+                                            <mat-form-field class="example-full-width" appearance="outline">
+                                                <mat-label>Project Start-End Date</mat-label>
+                                                <mat-date-range-input [rangePicker]="projectStartEndDatePicker">
+                                                    <input (input)="inputValueChanged($event,'projectStartDate')" formControlName="projectStartDate" placeholder="Project Start Date" matStartDate>
+                                                    <input (input)="inputValueChanged($event,'projectEndDate')" formControlName="projectEndDate" placeholder="Project Start Date" matEndDate>
+                                                  </mat-date-range-input>
+                                                  <mat-datepicker-toggle matSuffix [for]="projectStartEndDatePicker"></mat-datepicker-toggle>
+                                                  <mat-date-range-picker #projectStartEndDatePicker></mat-date-range-picker>
+                                                <mat-error
+                                                    *ngIf="(getFormControlByName('electricityPhaseStartDate').touched && getFormControlByName('electricityPhaseStartDate').invalid)
+                                                     || (getFormControlByName('electricityPhaseEndDate').touched && getFormControlByName('electricityPhaseEndDate').invalid)">
+                                                    This field is required *</mat-error>
+                                            </mat-form-field>
+                                        </div>
+                                    </div> 
+                                    
+                                    
+                                    <h4 class="background"><span>Project Files </span></h4>
+                                    <div class="row mt-3">
+                                        <div class="col">
+                                            <app-file-uploader
+                                                [elementId]="'specsFileName'" [elementName]="'Specs'"
+                                                [readOnly]="true"
+                                                [fileLocation]="project?.specsFileName" [buttonText]="'Upload'">
+                                            </app-file-uploader>
+                                        </div>
+                                    </div>
+                                    <div class="row mt-3">
+                                        <div class="col">
+                                            <app-file-uploader
+                                                [elementId]="'layoutFileName'" [elementName]="'Layout'"
+                                                [readOnly]="true"
+                                                [fileLocation]="project?.layoutFileName" [buttonText]="'Upload'">
+                                            </app-file-uploader>
+                                        </div>
+                                    </div>
+                                    <div class="row mt-3">
+                                        <div class="col">
+                                            <app-file-uploader
+                                                [elementId]="'paymentTermsFileName'" [elementName]="'Payment Terms'"
+                                                [readOnly]="true"
+                                                [fileLocation]="project?.paymentTermsFileName"
+                                                [buttonText]="'Upload'">
+                                            </app-file-uploader>
+                                        </div>
+                                    </div>
+                                    <div class="row mt-3">
+                                        <div class="col">
+                                            <app-file-uploader
+                                                [elementId]="'technicalProposalFileName'" [elementName]="'Technical Proposal'"
+                                                [readOnly]="true"
+                                                [fileLocation]="project?.technicalProposalFileName"
+                                                [buttonText]="'Upload'">
+                                            </app-file-uploader>
+                                        </div>
+                                    </div>
+                                    <div class="row mt-3">
+                                        <div class="col">
+                                            <app-file-uploader
+                                                [elementId]="'financialProposalFileName'" [elementName]="'Financial Proposal'"
+                                                [readOnly]="true"
+                                                [fileLocation]="project?.financialProposalFileName"
+                                                [buttonText]="'Upload'">
+                                            </app-file-uploader>
+                                        </div>
+                                    </div>
+                                    <div class="row mt-3">
+                                        <div class="col">
+                                            <app-file-uploader
+                                                [elementId]="'technicalProposalProof'" [elementName]="'Technical Proposal Proof'"
+                                                [readOnly]="true"
+                                                [fileLocation]="project?.technicalProposalProof"
+                                                [buttonText]="'Upload'">
+                                            </app-file-uploader>
+                                        </div>
+                                    </div>
+                                    <div class="row mt-3">
+                                        <div class="col">
+                                            <app-file-uploader
+                                                [elementId]="'financialProposalProof'" [elementName]="'Financial Proposal Proof'"
+                                                [readOnly]="true"
+                                                [fileLocation]="project?.financialProposalProof"
+                                                [buttonText]="'Upload'">
+                                            </app-file-uploader>
+                                        </div>
+                                    </div>
+                                    <div class="clearfix"></div>
+                                </form>
+                            </mat-tab>
+                            <mat-tab *ngIf="projectId" label="Timeline">
+                                <app-projects-timelines [projectId]="projectId"></app-projects-timelines>
+                            </mat-tab>
+                            <mat-tab label="Actions">
+                                <app-project-actions [projectIdInput]="projectId"></app-project-actions>
+                            </mat-tab>
+                        </mat-tab-group>
+                       
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

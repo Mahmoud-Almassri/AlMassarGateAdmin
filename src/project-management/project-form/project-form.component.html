@@ -1,0 +1,560 @@
+<div class="main-content">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="card">
+                    <div class="card-header card-header-primary">
+                        <h3 class="card-title">Project Form</h3>
+                        <p class="card-category">Task {{approval?.task?.title}}</p>
+                    </div>
+                    <div class="card-body">
+                        <mat-tab-group mat-align-tabs="start" [disableRipple]="true">
+                            <mat-tab label="Details">
+                                <div class="d-flex justify-content-end">
+                                    <button mat-raised-button class="btn btn-primary"
+                                        (click)="downloadQrCode(approval?.projectId,approval?.project?.projectName)">Download
+                                        QR Code</button>
+                                </div>
+                                <form [formGroup]="projectForm">
+                                    <!-- Start of readOnly controls -->
+                                    <div class="row mt-3"
+                                        *ngIf="!fetchControlSettings('numberOfPanels')?.hidden && fetchControlSettings('numberOfPanels')?.readOnly ">
+                                        <div class="col">
+                                            <mat-form-field class="example-full-width" appearance="outline">
+                                                <mat-label>Number of panels</mat-label>
+                                                <input (input)="inputValueChanged($event,'numberOfPanels')"
+                                                    type="number" matInput formControlName="numberOfPanels"
+                                                    placeholder="Number of panels">
+                                                <mat-error
+                                                    *ngIf="getFormControlByName('numberOfPanels').touched && getFormControlByName('numberOfPanels').invalid">
+                                                    This field is required *</mat-error>
+                                            </mat-form-field>
+                                        </div>
+                                    </div>
+                                    <div class="row mt-3"
+                                        *ngIf="!fetchControlSettings('designReference')?.hidden && fetchControlSettings('designReference')?.readOnly">
+                                        <div class="col">
+                                            <mat-form-field class="example-full-width" appearance="outline">
+                                                <mat-label>Design Reference</mat-label>
+                                                <input (input)="inputValueChanged($event,'designReference')" type="text"
+                                                    matInput formControlName="designReference"
+                                                    placeholder="Design Reference">
+                                                <mat-error
+                                                    *ngIf="getFormControlByName('designReference').touched && getFormControlByName('designReference').invalid">
+                                                    This field is required *</mat-error>
+                                            </mat-form-field>
+                                        </div>
+                                    </div>
+                                    <div class="row mt-3"
+                                        *ngIf="!fetchControlSettings('projectName')?.hidden&& fetchControlSettings('projectName')?.readOnly">
+                                        <div class="col">
+                                            <mat-form-field class="example-full-width" appearance="outline">
+                                                <mat-label>Project Name</mat-label>
+                                                <input (input)="inputValueChanged($event,'projectName')" type="text"
+                                                    matInput formControlName="projectName" placeholder="Project Name">
+                                                <mat-error
+                                                    *ngIf="getFormControlByName('projectName').touched && getFormControlByName('projectName').invalid">
+                                                    This field is required *</mat-error>
+                                            </mat-form-field>
+                                        </div>
+                                    </div>
+                                    <div class="row mt-3"
+                                        *ngIf="!fetchControlSettings('clientName')?.hidden && fetchControlSettings('clientName')?.readOnly">
+                                        <div class="col">
+                                            <mat-form-field class="example-full-width" appearance="outline">
+                                                <mat-label>Client Name</mat-label>
+                                                <input (input)="inputValueChanged($event,'clientName')" type="text"
+                                                    matInput formControlName="clientName" placeholder="Client Name">
+                                                <mat-error
+                                                    *ngIf="getFormControlByName('clientName').touched && getFormControlByName('clientName').invalid">
+                                                    This field is required *</mat-error>
+                                            </mat-form-field>
+                                        </div>
+                                    </div>
+                                    <div class="row mt-3"
+                                        *ngIf="!fetchControlSettings('subStatus')?.hidden && fetchControlSettings('subStatus')?.readOnly">
+                                        <div class="col">
+                                            <mat-form-field class="example-full-width" appearance="outline">
+                                                <mat-label>Sub Status</mat-label>
+                                                <mat-select (selectionChange)="selectValueChanged($event.value,'subStatus')"
+                                                    formControlName="subStatus" name="status">
+                                                    <mat-option *ngFor="let status of baseStatuses" [value]="status.id">
+                                                        {{status.name}}
+                                                    </mat-option>
+                                                </mat-select>
+                                                <mat-error
+                                                    *ngIf="getFormControlByName('subStatus').touched && getFormControlByName('subStatus').invalid">
+                                                    This field is required *</mat-error>
+                                            </mat-form-field>
+                                        </div>
+                                    </div>
+                                    <div class="row mt-3"
+                                        *ngIf="
+                                    !fetchControlSettings('ironPhaseStartDate')?.hidden && fetchControlSettings('ironPhaseStartDate')?.readOnly && 
+                                    !fetchControlSettings('ironPhaseEndDate')?.hidden && fetchControlSettings('ironPhaseEndDate')?.readOnly">
+                                        <div class="col">
+                                            <mat-form-field class="example-full-width" appearance="outline">
+                                                <mat-label>Iron Phase Start-End Date</mat-label>
+                                                <mat-date-range-input [rangePicker]="ironPhaseStartEndDatePicker">
+                                                    <input (dateChange)="inputValueChanged($event,'ironPhaseStartDate')"
+                                                        formControlName="ironPhaseStartDate"
+                                                        placeholder="Project Start Date" matStartDate>
+                                                    <input (dateChange)="inputValueChanged($event,'ironPhaseEndDate')"
+                                                        formControlName="ironPhaseEndDate"
+                                                        placeholder="Project Start Date" matEndDate>
+                                                </mat-date-range-input>
+                                                <mat-datepicker-toggle matSuffix [for]="ironPhaseStartEndDatePicker">
+                                                </mat-datepicker-toggle>
+                                                <mat-date-range-picker #ironPhaseStartEndDatePicker>
+                                                </mat-date-range-picker>
+                                                <mat-error
+                                                    *ngIf="getFormControlByName('ironPhaseStartDate').touched && getFormControlByName('ironPhaseStartDate').invalid
+                                                    || (getFormControlByName('ironPhaseEndDate').touched && getFormControlByName('ironPhaseEndDate').invalid)">
+                                                    This field is required *</mat-error>
+                                            </mat-form-field>
+                                        </div>
+                                    </div>
+                                    <div class="row mt-3"
+                                        *ngIf="
+                                    !fetchControlSettings('electricityPhaseStartDate')?.hidden &&fetchControlSettings('electricityPhaseStartDate')?.readOnly && 
+                                    !fetchControlSettings('electricityPhaseEndDate')?.hidden && fetchControlSettings('electricityPhaseEndDate')?.readOnly">
+                                        <div class="col">
+                                            <mat-form-field class="example-full-width" appearance="outline">
+                                                <mat-label>Electricity Phase Start=End Date</mat-label>
+                                                <mat-date-range-input
+                                                    [rangePicker]="electricityPhaseStartEndDatePicker">
+                                                    <input
+                                                        (dateChange)="inputValueChanged($event,'electricityPhaseStartDate')"
+                                                        formControlName="electricityPhaseStartDate"
+                                                        placeholder="Project Start Date" matStartDate>
+                                                    <input
+                                                        (dateChange)="inputValueChanged($event,'electricityPhaseEndDate')"
+                                                        formControlName="electricityPhaseEndDate"
+                                                        placeholder="Project Start Date" matEndDate>
+                                                </mat-date-range-input>
+                                                <mat-datepicker-toggle matSuffix
+                                                    [for]="electricityPhaseStartEndDatePicker"></mat-datepicker-toggle>
+                                                <mat-date-range-picker #electricityPhaseStartEndDatePicker>
+                                                </mat-date-range-picker>
+                                                <mat-error
+                                                    *ngIf="getFormControlByName('electricityPhaseStartDate').touched && getFormControlByName('electricityPhaseStartDate').invalid
+                                                    || (getFormControlByName('electricityPhaseEndDate').touched && getFormControlByName('electricityPhaseEndDate').invalid)">
+                                                    This field is required *</mat-error>
+                                            </mat-form-field>
+                                        </div>
+                                    </div>
+                                    <div class="row mt-3"
+                                        *ngIf="
+                                    !fetchControlSettings('projectStartDate')?.hidden && fetchControlSettings('projectStartDate')?.readOnly && 
+                                    !fetchControlSettings('projectEndDate')?.hidden && fetchControlSettings('projectEndDate')?.readOnly">
+                                        <div class="col">
+                                            <mat-form-field class="example-full-width" appearance="outline">
+                                                <mat-label>Project Start-End Date</mat-label>
+                                                <mat-date-range-input [rangePicker]="projectStartEndDatePicker">
+                                                    <input (dateChange)="inputValueChanged($event,'projectStartDate')"
+                                                        formControlName="projectStartDate"
+                                                        placeholder="Project Start Date" matStartDate>
+                                                    <input (dateChange)="inputValueChanged($event,'projectEndDate')"
+                                                        formControlName="projectEndDate"
+                                                        placeholder="Project Start Date" matEndDate>
+                                                </mat-date-range-input>
+                                                <mat-datepicker-toggle matSuffix [for]="projectStartEndDatePicker">
+                                                </mat-datepicker-toggle>
+                                                <mat-date-range-picker #projectStartEndDatePicker>
+                                                </mat-date-range-picker>
+                                                <mat-error
+                                                    *ngIf="(getFormControlByName('projectStartDate').touched && getFormControlByName('projectStartDate').invalid)
+                                                     || (getFormControlByName('projectEndDate').touched && getFormControlByName('projectEndDate').invalid)">
+                                                    This field is required *</mat-error>
+                                            </mat-form-field>
+                                        </div>
+                                    </div>
+                                    <!-- end of readOnly controls -->
+
+                                    <!-- start of required controls -->
+                                    <div class="row mt-3"
+                                        *ngIf="!fetchControlSettings('numberOfPanels')?.hidden && !fetchControlSettings('numberOfPanels')?.readOnly ">
+                                        <div class="col">
+                                            <mat-form-field class="example-full-width" appearance="outline">
+                                                <mat-label>Number of panels</mat-label>
+                                                <input (input)="inputValueChanged($event,'numberOfPanels')"
+                                                    type="number" matInput formControlName="numberOfPanels"
+                                                    placeholder="Number of panels">
+                                                <mat-error
+                                                    *ngIf="getFormControlByName('numberOfPanels').touched && getFormControlByName('numberOfPanels').invalid">
+                                                    This field is required *</mat-error>
+                                            </mat-form-field>
+                                        </div>
+                                    </div>
+                                    <div class="row mt-3"
+                                        *ngIf="!fetchControlSettings('designReference')?.hidden && !fetchControlSettings('designReference')?.readOnly">
+                                        <div class="col">
+                                            <mat-form-field class="example-full-width" appearance="outline">
+                                                <mat-label>Design Reference</mat-label>
+                                                <input (input)="inputValueChanged($event,'designReference')" type="text"
+                                                    matInput formControlName="designReference"
+                                                    placeholder="Design Reference">
+                                                <mat-error
+                                                    *ngIf="getFormControlByName('designReference').touched && getFormControlByName('designReference').invalid">
+                                                    This field is required *</mat-error>
+                                            </mat-form-field>
+                                        </div>
+                                    </div>
+                                    <div class="row mt-3"
+                                        *ngIf="!fetchControlSettings('projectName')?.hidden&& !fetchControlSettings('projectName')?.readOnly">
+                                        <div class="col">
+                                            <mat-form-field class="example-full-width" appearance="outline">
+                                                <mat-label>Project Name</mat-label>
+                                                <input (input)="inputValueChanged($event,'projectName')" type="text"
+                                                    matInput formControlName="projectName" placeholder="Project Name">
+                                                <mat-error
+                                                    *ngIf="getFormControlByName('projectName').touched && getFormControlByName('projectName').invalid">
+                                                    This field is required *</mat-error>
+                                            </mat-form-field>
+                                        </div>
+                                    </div>
+                                    <div class="row mt-3"
+                                        *ngIf="!fetchControlSettings('clientName')?.hidden && !fetchControlSettings('clientName')?.readOnly">
+                                        <div class="col">
+                                            <mat-form-field class="example-full-width" appearance="outline">
+                                                <mat-label>Client Name</mat-label>
+                                                <input (input)="inputValueChanged($event,'clientName')" type="text"
+                                                    matInput formControlName="clientName" placeholder="Client Name">
+                                                <mat-error
+                                                    *ngIf="getFormControlByName('clientName').touched && getFormControlByName('clientName').invalid">
+                                                    This field is required *</mat-error>
+                                            </mat-form-field>
+                                        </div>
+                                    </div>
+                                    <div class="row mt-3"
+                                        *ngIf="!fetchControlSettings('subStatus')?.hidden && !fetchControlSettings('subStatus')?.readOnly">
+                                        <div class="col">
+                                            <mat-form-field class="example-full-width" appearance="outline">
+                                                <mat-label>Sub Status</mat-label>
+                                                <mat-select (selectionChange)="selectValueChanged($event.value,'subStatus')"
+                                                    formControlName="subStatus" name="status">
+                                                    <mat-option *ngFor="let status of baseStatuses" [value]="status.id">
+                                                        {{status.name}}
+                                                    </mat-option>
+                                                </mat-select>
+                                                <mat-error
+                                                    *ngIf="getFormControlByName('subStatus').touched && getFormControlByName('subStatus').invalid">
+                                                    This field is required *</mat-error>
+                                            </mat-form-field>
+                                        </div>
+                                    </div>
+                                    <div class="row mt-3"
+                                        *ngIf="
+                                    !fetchControlSettings('ironPhaseStartDate')?.hidden && !fetchControlSettings('ironPhaseStartDate')?.readOnly && 
+                                    !fetchControlSettings('ironPhaseEndDate')?.hidden && !fetchControlSettings('ironPhaseEndDate')?.readOnly">
+                                        <div class="col">
+                                            <mat-form-field class="example-full-width" appearance="outline">
+                                                <mat-label>Iron Phase Start-End Date</mat-label>
+                                                <mat-date-range-input [rangePicker]="ironPhaseStartEndDatePicker">
+                                                    <input (dateChange)="inputValueChanged($event,'ironPhaseStartDate')"
+                                                        formControlName="ironPhaseStartDate"
+                                                        placeholder="Project Start Date" matStartDate>
+                                                    <input (dateChange)="inputValueChanged($event,'ironPhaseEndDate')"
+                                                        formControlName="ironPhaseEndDate"
+                                                        placeholder="Project Start Date" matEndDate>
+                                                </mat-date-range-input>
+                                                <mat-datepicker-toggle matSuffix [for]="ironPhaseStartEndDatePicker">
+                                                </mat-datepicker-toggle>
+                                                <mat-date-range-picker #ironPhaseStartEndDatePicker>
+                                                </mat-date-range-picker>
+                                                <mat-error
+                                                    *ngIf="getFormControlByName('ironPhaseStartDate').touched && getFormControlByName('ironPhaseStartDate').invalid
+                                                    || (getFormControlByName('ironPhaseEndDate').touched && getFormControlByName('ironPhaseEndDate').invalid)">
+                                                    This field is required *</mat-error>
+                                            </mat-form-field>
+                                        </div>
+                                    </div>
+                                    <div class="row mt-3"
+                                        *ngIf="
+                                    !fetchControlSettings('electricityPhaseStartDate')?.hidden && !fetchControlSettings('electricityPhaseStartDate')?.readOnly && 
+                                    !fetchControlSettings('electricityPhaseEndDate')?.hidden && !fetchControlSettings('electricityPhaseEndDate')?.readOnly">
+                                        <div class="col">
+                                            <mat-form-field class="example-full-width" appearance="outline">
+                                                <mat-label>Electricity Phase Start=End Date</mat-label>
+                                                <mat-date-range-input
+                                                    [rangePicker]="electricityPhaseStartEndDatePicker">
+                                                    <input
+                                                        (dateChange)="inputValueChanged($event,'electricityPhaseStartDate')"
+                                                        formControlName="electricityPhaseStartDate"
+                                                        placeholder="Project Start Date" matStartDate>
+                                                    <input
+                                                        (dateChange)="inputValueChanged($event,'electricityPhaseEndDate')"
+                                                        formControlName="electricityPhaseEndDate"
+                                                        placeholder="Project Start Date" matEndDate>
+                                                </mat-date-range-input>
+                                                <mat-datepicker-toggle matSuffix
+                                                    [for]="electricityPhaseStartEndDatePicker"></mat-datepicker-toggle>
+                                                <mat-date-range-picker #electricityPhaseStartEndDatePicker>
+                                                </mat-date-range-picker>
+                                                <mat-error
+                                                    *ngIf="getFormControlByName('electricityPhaseStartDate').touched && getFormControlByName('electricityPhaseStartDate').invalid
+                                                    || (getFormControlByName('electricityPhaseEndDate').touched && getFormControlByName('electricityPhaseEndDate').invalid)">
+                                                    This field is required *</mat-error>
+                                            </mat-form-field>
+                                        </div>
+                                    </div>
+                                    <div class="row mt-3"
+                                        *ngIf="
+                                    !fetchControlSettings('projectStartDate')?.hidden && !fetchControlSettings('projectStartDate')?.readOnly && 
+                                    !fetchControlSettings('projectEndDate')?.hidden && !fetchControlSettings('projectEndDate')?.readOnly">
+                                        <div class="col">
+                                            <mat-form-field class="example-full-width" appearance="outline">
+                                                <mat-label>Project Start-End Date</mat-label>
+                                                <mat-date-range-input [rangePicker]="projectStartEndDatePicker">
+                                                    <input (dateChange)="inputValueChanged($event,'projectStartDate')"
+                                                        formControlName="projectStartDate"
+                                                        placeholder="Project Start Date" matStartDate>
+                                                    <input (dateChange)="inputValueChanged($event,'projectEndDate')"
+                                                        formControlName="projectEndDate"
+                                                        placeholder="Project Start Date" matEndDate>
+                                                </mat-date-range-input>
+                                                <mat-datepicker-toggle matSuffix [for]="projectStartEndDatePicker">
+                                                </mat-datepicker-toggle>
+                                                <mat-date-range-picker #projectStartEndDatePicker>
+                                                </mat-date-range-picker>
+                                                <mat-error
+                                                    *ngIf="(getFormControlByName('projectStartDate').touched && getFormControlByName('projectStartDate').invalid)
+                                                     || (getFormControlByName('projectEndDate').touched && getFormControlByName('projectEndDate').invalid)">
+                                                    This field is required *</mat-error>
+                                            </mat-form-field>
+                                        </div>
+                                    </div>
+                                    <!-- end of required controls -->
+                                    <h4 class="background"><span>Project Files </span></h4>
+                                    <div class="row mt-3"
+                                        *ngIf="!fetchControlSettings('specsFileName')?.hidden && fetchControlSettings('specsFileName')?.readOnly">
+                                        <div class="col">
+                                            <app-file-uploader (fileSelected)="fileSelected($event,'specsFile')"
+                                                [elementId]="'specsFileName'" [elementName]="'Specs'"
+                                                [readOnly]="fetchControlSettings('specsFileName')?.readOnly"
+                                                [fileLocation]="approval?.project?.specsFileName"
+                                                [buttonText]="'Upload'">
+                                            </app-file-uploader>
+                                        </div>
+                                    </div>
+                                    <div class="row mt-3"
+                                        *ngIf="!fetchControlSettings('layoutFileName')?.hidden && fetchControlSettings('layoutFileName')?.readOnly">
+                                        <div class="col">
+                                            <app-file-uploader (fileSelected)="fileSelected($event,'layoutFile')"
+                                                [elementId]="'layoutFileName'" [elementName]="'Layout'"
+                                                [readOnly]="fetchControlSettings('layoutFileName')?.readOnly"
+                                                [fileLocation]="approval?.project?.layoutFileName"
+                                                [buttonText]="'Upload'">
+                                            </app-file-uploader>
+                                        </div>
+                                    </div>
+                                    <div class="row mt-3"
+                                        *ngIf="!fetchControlSettings('paymentTermsFileName')?.hidden && fetchControlSettings('paymentTermsFileName')?.readOnly">
+                                        <div class="col">
+                                            <app-file-uploader (fileSelected)="fileSelected($event,'paymentTermsFile')"
+                                                [elementId]="'paymentTermsFileName'" [elementName]="'Payment Terms'"
+                                                [readOnly]="fetchControlSettings('paymentTermsFileName')?.readOnly"
+                                                [fileLocation]="approval?.project?.paymentTermsFileName"
+                                                [buttonText]="'Upload'">
+                                            </app-file-uploader>
+                                        </div>
+                                    </div>
+                                    <div class="row mt-3"
+                                        *ngIf="!fetchControlSettings('technicalProposalFileName')?.hidden && fetchControlSettings('technicalProposalFileName')?.readOnly">
+                                        <div class="col">
+                                            <app-file-uploader
+                                                (fileSelected)="fileSelected($event,'technicalProposalFile')"
+                                                [elementId]="'technicalProposalFileName'"
+                                                [elementName]="'Technical Proposal'"
+                                                [readOnly]="fetchControlSettings('technicalProposalFileName')?.readOnly"
+                                                [fileLocation]="approval?.project?.technicalProposalFileName"
+                                                [buttonText]="'Upload'">
+                                            </app-file-uploader>
+                                        </div>
+                                    </div>
+                                    <div class="row mt-3"
+                                        *ngIf="!fetchControlSettings('financialProposalFileName')?.hidden && fetchControlSettings('financialProposalFileName')?.readOnly">
+                                        <div class="col">
+                                            <app-file-uploader
+                                                (fileSelected)="fileSelected($event,'financialProposalFile')"
+                                                [elementId]="'financialProposalFileName'"
+                                                [elementName]="'Financial Proposal'"
+                                                [readOnly]="fetchControlSettings('financialProposalFileName')?.readOnly"
+                                                [fileLocation]="approval?.project?.financialProposalFileName"
+                                                [buttonText]="'Upload'">
+                                            </app-file-uploader>
+                                        </div>
+                                    </div>
+                                    <div class="row mt-3"
+                                        *ngIf="!fetchControlSettings('technicalProposalProof')?.hidden && fetchControlSettings('technicalProposalProof')?.readOnly">
+                                        <div class="col">
+                                            <app-file-uploader [elementId]="'technicalProposalProof'"
+                                                [elementName]="'Technical Proposal Proof'" [readOnly]="true"
+                                                [fileLocation]="approval?.project?.technicalProposalProof"
+                                                [buttonText]="'Upload'">
+                                            </app-file-uploader>
+                                        </div>
+                                    </div>
+                                    <div class="row mt-3"
+                                        *ngIf="!fetchControlSettings('financialProposalProof')?.hidden && fetchControlSettings('financialProposalProof')?.readOnly">
+                                        <div class="col">
+                                            <app-file-uploader [elementId]="'financialProposalProof'"
+                                                [elementName]="'Financial Proposal Proof'" [readOnly]="true"
+                                                [fileLocation]="approval?.project?.financialProposalProof"
+                                                [buttonText]="'Upload'">
+                                            </app-file-uploader>
+                                        </div>
+                                    </div>
+
+
+                                    <div class="row mt-3"
+                                        *ngIf="!fetchControlSettings('specsFileName')?.hidden && !fetchControlSettings('specsFileName')?.readOnly">
+                                        <div class="col">
+                                            <app-file-uploader (fileSelected)="fileSelected($event,'specsFile')"
+                                                [elementId]="'specsFileName'" [elementName]="'Specs'"
+                                                [readOnly]="fetchControlSettings('specsFileName')?.readOnly"
+                                                [fileLocation]="approval?.project?.specsFileName"
+                                                [buttonText]="'Upload'">
+                                            </app-file-uploader>
+                                        </div>
+                                    </div>
+                                    <div class="row mt-3"
+                                        *ngIf="!fetchControlSettings('layoutFileName')?.hidden && !fetchControlSettings('layoutFileName')?.readOnly">
+                                        <div class="col">
+                                            <app-file-uploader (fileSelected)="fileSelected($event,'layoutFile')"
+                                                [elementId]="'layoutFileName'" [elementName]="'Layout'"
+                                                [readOnly]="fetchControlSettings('layoutFileName')?.readOnly"
+                                                [fileLocation]="approval?.project?.layoutFileName"
+                                                [buttonText]="'Upload'">
+                                            </app-file-uploader>
+                                        </div>
+                                    </div>
+                                    <div class="row mt-3"
+                                        *ngIf="!fetchControlSettings('paymentTermsFileName')?.hidden && !fetchControlSettings('paymentTermsFileName')?.readOnly">
+                                        <div class="col">
+                                            <app-file-uploader (fileSelected)="fileSelected($event,'paymentTermsFile')"
+                                                [elementId]="'paymentTermsFileName'" [elementName]="'Payment Terms'"
+                                                [readOnly]="fetchControlSettings('paymentTermsFileName')?.readOnly"
+                                                [fileLocation]="approval?.project?.paymentTermsFileName"
+                                                [buttonText]="'Upload'">
+                                            </app-file-uploader>
+                                        </div>
+                                    </div>
+                                    <div class="row mt-3"
+                                        *ngIf="!fetchControlSettings('technicalProposalFileName')?.hidden && !fetchControlSettings('technicalProposalFileName')?.readOnly">
+                                        <div class="col">
+                                            <app-file-uploader
+                                                (fileSelected)="fileSelected($event,'technicalProposalFile')"
+                                                [elementId]="'technicalProposalFileName'"
+                                                [elementName]="'Technical Proposal'"
+                                                [readOnly]="fetchControlSettings('technicalProposalFileName')?.readOnly"
+                                                [fileLocation]="approval?.project?.technicalProposalFileName"
+                                                [buttonText]="'Upload'">
+                                            </app-file-uploader>
+                                        </div>
+                                    </div>
+                                    <div class="row mt-3"
+                                        *ngIf="!fetchControlSettings('financialProposalFileName')?.hidden && !fetchControlSettings('financialProposalFileName')?.readOnly">
+                                        <div class="col">
+                                            <app-file-uploader
+                                                (fileSelected)="fileSelected($event,'financialProposalFile')"
+                                                [elementId]="'financialProposalFileName'"
+                                                [elementName]="'Financial Proposal'"
+                                                [readOnly]="fetchControlSettings('financialProposalFileName')?.readOnly"
+                                                [fileLocation]="approval?.project?.financialProposalFileName"
+                                                [buttonText]="'Upload'">
+                                            </app-file-uploader>
+                                        </div>
+                                    </div>
+                                    <div class="row mt-3"
+                                        *ngIf="!fetchControlSettings('technicalProposalProof')?.hidden && !fetchControlSettings('technicalProposalProof')?.readOnly">
+                                        <div class="col">
+                                            <app-file-uploader [elementId]="'technicalProposalProof'"
+                                                [elementName]="'Technical Proposal Proof'" [readOnly]="true"
+                                                [fileLocation]="approval?.project?.technicalProposalProof"
+                                                [buttonText]="'Upload'">
+                                            </app-file-uploader>
+                                        </div>
+                                    </div>
+                                    <div class="row mt-3"
+                                        *ngIf="!fetchControlSettings('financialProposalProof')?.hidden && !fetchControlSettings('financialProposalProof')?.readOnly">
+                                        <div class="col">
+                                            <app-file-uploader [elementId]="'financialProposalProof'"
+                                                [elementName]="'Financial Proposal Proof'" [readOnly]="true"
+                                                [fileLocation]="approval?.project?.financialProposalProof"
+                                                [buttonText]="'Upload'">
+                                            </app-file-uploader>
+                                        </div>
+                                    </div>
+                                    <div class="row mt-3">
+                                        <div class="col">
+                                            <mat-form-field class="example-full-width" appearance="outline">
+                                                <mat-label>Leave a comment</mat-label>
+                                                <textarea formControlName="comments" matInput
+                                                    placeholder="Leave a comment..."></textarea>
+                                            </mat-form-field>
+                                        </div>
+                                    </div>
+                                    <h4 *ngIf="approval?.status ==1 || approval?.status ==2 || approval?.status ==3" class="background"><span>Actions </span></h4>
+                                    <div class="row mt-3 d-flex justify-content-center"
+                                        *ngIf="approval?.task?.taskType==1 &&( approval?.status ==1 || approval?.status ==2 || approval?.status ==3)">
+                                        <button (click)="submitForm(1)" mat-raised-button type="submit"
+                                            class="btn btn-primary pull-right">Approve <i class="fa fa-check"
+                                                aria-hidden="true"></i></button>
+                                        <button (click)="submitForm(3)" mat-raised-button type="submit"
+                                            class="btn btn-primary pull-right">Reject <i class="fa fa-ban"
+                                                aria-hidden="true"></i></button>
+                                        <button (click)="submitForm(4)" mat-raised-button type="submit"
+                                            class="btn btn-primary pull-right">Return For Modification <i
+                                                class="fa fa-undo" aria-hidden="true"></i></button>
+                                    </div>
+                                    <div class="row mt-3 d-flex justify-content-center"
+                                        *ngIf="approval?.task?.taskType==2 &&( approval?.status ==1 || approval?.status ==2 || approval?.status ==3)">
+                                        <button (click)="submitForm(2)" mat-raised-button type="submit"
+                                            class="btn btn-primary pull-right">Submit <i class="fa fa-check"
+                                                aria-hidden="true"></i></button>
+                                        <button (click)="submitForm()" mat-raised-button type="submit"
+                                            class="btn btn-primary pull-right">Cancel <i
+                                                class="fa fa-long-arrow-alt-left" aria-hidden="true"></i></button>
+                                    </div>
+                                    <div class="row mt-3 d-flex justify-content-center"
+                                        *ngIf="approval?.task?.taskType==5">
+                                        <button (click)="submitForm(5)" mat-raised-button type="submit"
+                                            class="btn btn-primary pull-right">Complete <i class="fa fa-check"
+                                                aria-hidden="true"></i></button>
+                                    </div>
+
+                                    <div class="clearfix"></div>
+                                </form>
+                            </mat-tab>
+                            <mat-tab label="Files">
+                                <app-project-files-add (fileAdded)="getApprovalById(approvalId)"
+                                    [projectId]="approval?.projectId"></app-project-files-add>
+                                <hr />
+                                <div class="mt-3" *ngFor="let file of approval?.project?.projectFiles">
+                                    <div class="col">
+                                        <app-file-uploader (fileDeleted)="getApprovalById(approvalId)"
+                                            [isDeleteAllowed]="true" [elementId]="file?.id?.toString()"
+                                            [elementName]="file?.name" [readOnly]="true" [fileLocation]="file?.fileName"
+                                            [buttonText]="'Upload'">
+                                        </app-file-uploader>
+                                    </div>
+                                </div>
+                            </mat-tab>
+                            <mat-tab label="Part Types">
+                                <app-part></app-part>
+                            </mat-tab>
+                            <mat-tab *ngIf="approval?.projectId" label="Timeline">
+                                <app-projects-timelines [projectId]="approval?.projectId"></app-projects-timelines>
+                            </mat-tab>
+                            <mat-tab *ngIf="approval?.projectId" label="Actions">
+                                <app-project-actions [projectIdInput]="approval?.projectId"></app-project-actions>
+                            </mat-tab>
+                        </mat-tab-group>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,9 @@
+.Upload-button{
+    border-radius: 28px;
+    width: 240px;
+    height: 53px;
+    text-align: center;
+    border:none !important;
+    color: white;
+    background: linear-gradient(90deg, rgba(248,103,62,1) 0%, rgba(255,131,96,1) 35%, rgba(255,175,153,1) 100%);
+}

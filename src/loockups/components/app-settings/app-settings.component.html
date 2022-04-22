@@ -1,0 +1,151 @@
+<div class="main-content">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="card">
+                    <div class="card-header card-header-primary">
+                        <h3 class="card-title ">App Settings</h3>
+                        <p class="card-category"> App Settings Management</p>
+                    </div>
+                    <div class="card-body">
+                        <form [formGroup]="appSettingsForm">
+                            <h4 class="background"><span>Edit App Settings</span>
+                            </h4>
+                            <div class="row">
+                                <div class="col-md-5">
+                                    <mat-form-field class="example-full-width" appearance="outline">
+                                        <mat-label>Email</mat-label>
+                                        <input matInput formControlName="contactUsEmail" >
+                                    </mat-form-field>
+                                </div> 
+                                <div class="col-md-5">
+                                    <mat-form-field class="example-full-width" appearance="outline">
+                                        <mat-label>Mobile No</mat-label>
+                                        <input matInput formControlName="contactUsMobileNo" >
+                                    </mat-form-field>
+                                </div> 
+
+                                <div class="col-md-5">
+                                    <mat-form-field class="example-full-width" appearance="outline">
+                                        <mat-label>Longitude</mat-label>
+                                        <input matInput formControlName="contactUsLongitude" >
+                                    </mat-form-field>
+                                </div> 
+                                
+                                <div class="col-md-5">
+                                    <mat-form-field class="example-full-width" appearance="outline">
+                                        <mat-label>Lattiude</mat-label>
+                                        <input matInput formControlName="contactUsLatitude" >
+                                    </mat-form-field>
+                                </div> 
+                                <div class="col-md-5">
+                                    <mat-form-field class="example-full-width" appearance="outline">
+                                        <mat-label>Address</mat-label>
+                                        <input matInput formControlName="address" >
+                                    </mat-form-field>
+                                </div> 
+                                <div class="col-md-5">
+                                    <mat-form-field class="example-full-width" appearance="outline">
+                                        <mat-label>Contact Us Title</mat-label>
+                                        <textarea matInput formControlName="contactUsTitle" ></textarea>
+                                    </mat-form-field>
+                                </div> 
+                            </div>
+                            <hr/>
+                            <h4 class="background"><span>About Us</span></h4>
+                            <div class="row">
+                                <div class="col-md-5">
+                                    <mat-form-field class="example-full-width" appearance="outline">
+                                        <mat-label>About Us Title</mat-label>
+                                        <textarea matInput formControlName="aboutUsTitle" ></textarea>
+                                    </mat-form-field>
+                                </div> 
+                                <div class="col-md-5">
+                                    <mat-form-field class="example-full-width" appearance="outline">
+                                        <mat-label>About Us Desc</mat-label>
+                                        <textarea matInput formControlName="aboutUsDescription" ></textarea>
+                                    </mat-form-field>
+                                </div> 
+                                
+                                <div class="col-md-5">
+                                    <mat-form-field class="example-full-width" appearance="outline">
+                                        <mat-label>Vision</mat-label>
+                                        <textarea matInput formControlName="aboutUsVision" ></textarea>
+                                    </mat-form-field>
+                                </div> 
+                                <div class="col-md-5">
+                                    <mat-form-field class="example-full-width" appearance="outline">
+                                        <mat-label>Mission</mat-label>
+                                        <textarea matInput formControlName="aboutUsMision" ></textarea>
+                                    </mat-form-field>
+                                </div> 
+                                <div class="col-md-5">
+                                    <mat-form-field class="example-full-width" appearance="outline">
+                                        <mat-label>About Us Title In Arabic</mat-label>
+                                        <textarea matInput formControlName="aboutUsTitleAR" ></textarea>
+                                    </mat-form-field>
+                                </div> 
+                                <div class="col-md-5">
+                                    <mat-form-field class="example-full-width" appearance="outline">
+                                        <mat-label>About Us Desc In Arabic</mat-label>
+                                        <textarea matInput formControlName="aboutUsDescriptionAR" ></textarea>
+                                    </mat-form-field>
+                                </div> 
+                                
+                                <div class="col-md-5">
+                                    <mat-form-field class="example-full-width" appearance="outline">
+                                        <mat-label>Vision In Arabic</mat-label>
+                                        <textarea matInput formControlName="aboutUsVisionAR" ></textarea>
+                                    </mat-form-field>
+                                </div> 
+                                <div class="col-md-5">
+                                    <mat-form-field class="example-full-width" appearance="outline">
+                                        <mat-label>Mission In Arabic</mat-label>
+                                        <textarea matInput formControlName="aboutUsMisionAR" ></textarea>
+                                    </mat-form-field>
+                                </div> 
+                            </div>
+                            <h4 class="background"><span>Social Media Links</span></h4>
+                            <div class="row">
+                                <div class="col-md-5">
+                                    <mat-form-field class="example-full-width" appearance="outline">
+                                        <mat-label>Facebook Url</mat-label>
+                                        <input matInput formControlName="facebook" >
+                                    </mat-form-field>
+                                </div> 
+                                <div class="col-md-5">
+                                    <mat-form-field class="example-full-width" appearance="outline">
+                                        <mat-label>Youtube Url</mat-label>
+                                        <input matInput formControlName="youtube" >
+                                    </mat-form-field>
+                                </div> 
+                                
+                                <div class="col-md-5">
+                                    <mat-form-field class="example-full-width" appearance="outline">
+                                        <mat-label>Twitter Url</mat-label>
+                                        <input matInput formControlName="twitter" >
+                                    </mat-form-field>
+                                </div> 
+                                <div class="col-md-5">
+                                    <mat-form-field class="example-full-width" appearance="outline">
+                                        <mat-label>Linkedin Url</mat-label>
+                                        <input matInput formControlName="linkedin" >
+                                    </mat-form-field>
+                                </div> 
+                            </div>
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <button mat-raised-button  class="btn btn-primary"  (click)="updateAppSettings()"
+                                        style="margin: 1px;">Edit</button>
+                                    <button mat-raised-button  class="btn btn-primary"   (click)="cancel()"
+                                        style="margin: 1px;">Cancel</button>
+                                        </div>
+                            </div> 
+                        </form>
+                        <br/>
+                        </div>
+                    </div>
+            </div>
+        </div>
+    </div>
+</div>

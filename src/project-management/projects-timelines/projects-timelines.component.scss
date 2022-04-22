@@ -1,0 +1,241 @@
+.project-circle {
+    position: absolute;
+    top: 7px;
+    z-index: 1;
+    left: -20px;
+    width: 70px;
+    height: 70px;
+    border-radius: 32px;
+    box-shadow: 0 2px 2px 0 rgb(0 0 0 / 14%), 0 3px 1px -2px rgb(0 0 0 / 20%), 0 1px 5px 0 rgb(0 0 0 / 12%);
+}
+
+.project-circle-day {
+    color: white;
+    font-size: medium;
+    font-weight: bold;
+}
+
+.project-circle-month {
+    color: white;
+    font-size: x-large;
+    font-weight: bold;
+}
+
+.comments-btn {
+    position: absolute;
+    right: 15px;
+    top: 8px;
+
+    button {
+        color: white !important;
+    }
+}
+
+h4 {
+    font: 20px sans-serif;
+    margin-top: 30px;
+    text-align: center;
+    //text-transform: uppercase;
+    color: #21252991;
+}
+
+h4.background {
+    position: relative;
+    z-index: 1;
+
+    &:before {
+        border-top: 2px solid #dfdfdf;
+        content: "";
+        margin: 0 auto;
+        /* this centers the line to the full width specified */
+        position: absolute;
+        /* positioning must be absolute here, and relative positioning must be applied to the parent */
+        top: 50%;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        width: 95%;
+        z-index: -1;
+    }
+
+    span {
+        /* to hide the lines from behind the text, you have to set the background color the same as the container */
+        background: #fff;
+        padding: 0 15px;
+    }
+}
+
+h4.double:before {
+    /* this is just to undo the :before styling from above */
+    border-top: none;
+}
+
+h4.double:after {
+    border-bottom: 1px solid blue;
+    -webkit-box-shadow: 0 1px 0 0 red;
+    -moz-box-shadow: 0 1px 0 0 red;
+    box-shadow: 0 1px 0 0 red;
+    content: "";
+    margin: 0 auto;
+    /* this centers the line to the full width specified */
+    position: absolute;
+    top: 45%;
+    left: 0;
+    right: 0;
+    width: 95%;
+    z-index: -1;
+}
+
+h4.no-background {
+    position: relative;
+    overflow: hidden;
+
+    span {
+        display: inline-block;
+        vertical-align: baseline;
+        zoom: 1;
+        *display: inline;
+        *vertical-align: auto;
+        position: relative;
+        padding: 0 20px;
+
+        &:before,
+        &:after {
+            content: '';
+            display: block;
+            width: 1000px;
+            position: absolute;
+            top: 0.73em;
+            border-top: 1px solid red;
+        }
+
+        &:before {
+            right: 100%;
+        }
+
+        &:after {
+            left: 100%;
+        }
+    }
+}
+
+h4.no-span {
+    display: table;
+    white-space: nowrap;
+
+    &:before,
+    &:after {
+        border-top: 1px solid green;
+        content: '';
+        display: table-cell;
+        position: relative;
+        top: 0.5em;
+        width: 45%;
+    }
+
+    &:before {
+        right: 1.5%;
+    }
+
+    &:after {
+        left: 1.5%;
+    }
+}
+
+@import url("https://fonts.googleapis.com/css?family=Dosis");
+
+// CHANGE THIS HEX COLOR TO UPDATE WHOLE DESIGN
+$blue: #179094;
+
+* {
+    box-sizing: border-box;
+}
+
+h1 {
+    color: darken($blue, 20);
+    text-align: center;
+    font-size: 2em;
+
+    i {
+        color: lighten($blue, 40);
+    }
+}
+
+.timeline-wrapper {
+    position: relative;
+    margin-top: 40px;
+}
+
+.timeline {
+    display: flex;
+    transition: all 0.3s;
+    justify-content: center;
+    padding-bottom: 30px;
+    border-bottom: 10px solid $blue;
+    margin: 0 0 50px 0;
+
+    .event {
+        cursor: pointer;
+        padding: 1em;
+        padding-top: 35px;
+        position: relative;
+        margin: 0 1em 0 1em;
+        transition: all 0.3s;
+        box-shadow: 0 0 5px #ccc;
+        text-align: center;
+        width: 140px;
+
+
+
+        p {
+            color: $blue !important;
+        }
+
+        * {
+            padding: 0;
+            margin: 0;
+        }
+    }
+
+    .event-choosen {
+        background: $blue;
+        cursor: pointer;
+        padding: 1em;
+        padding-top: 35px;
+        position: relative;
+        margin: 0 1em 0 1em;
+        transition: all 0.3s;
+        box-shadow: 0 0 5px #ccc;
+        text-align: center;
+        width: 140px;
+
+        p {
+            color: white;
+        }
+
+        * {
+            padding: 0;
+            margin: 0;
+        }
+
+
+
+        &::after {
+            // position: absolute;
+            margin: 0 auto;
+            position: relative;
+            bottom: -65px;
+            content: "";
+            display: block;
+            border-radius: 15px;
+            height: 30px;
+            width: 30px;
+            box-sizing: border-box;
+            box-shadow: 0 0 5px darken($blue, 10);
+            background: #fff;
+            border: 5px solid $blue;
+            transition: all 0.25s;
+            z-index: 2;
+        }
+    }
+}

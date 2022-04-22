@@ -1,0 +1,17 @@
+.dropdown-toggle::after {
+    display: inline-block !important;
+    position: absolute !important;
+    margin-left: 15.255em !important;
+    margin-top: -16px !important;
+    content: "" !important;
+    border-top: 0.3em solid !important;
+    border-right: 0.3em solid transparent !important;
+    border-bottom: 0 !important;
+    border-left: 0.3em solid transparent !important;
+}
+.sub-menu{
+    margin-left: 40px !important;
+     p{
+        font-size: 13px !important;
+    }
+}
